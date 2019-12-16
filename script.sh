@@ -26,7 +26,7 @@ tmate -S /tmp/tmate.sock wait tmate-ready
 
 # Print connection info
 DISPLAY=1
-while [ $DISPLAY -le 3 ]; do
+while [ $DISPLAY -le 300 ]; do
   echo ________________________________________________________________________________
   echo To connect to this session copy-n-paste the following into a terminal or browser:
   tmate -S /tmp/tmate.sock display -p '#{tmate_ssh}'
