@@ -26,14 +26,14 @@ tmate -S /tmp/tmate.sock wait tmate-ready
 
 # Print connection info
 DISPLAY=1
-while [ $DISPLAY -le 900 ]; do
+while [ $DISPLAY -le 10800 ]; do
   echo ________________________________________________________________________________
   echo To connect to this session copy-n-paste the following into a terminal or browser:
   tmate -S /tmp/tmate.sock display -p '#{tmate_ssh}'
   tmate -S /tmp/tmate.sock display -p '#{tmate_web}'
-  [ ! -f /tmp/keepalive ] && echo -e "After connecting you can run 'touch /tmp/keepalive' to disable the 30m timeout"
+  [ ! -f /tmp/keepalive ] && echo -e "After connecting you can run 'touch /tmp/keepalive' to disable the 3h timeout"
   DISPLAY=$(($DISPLAY+1))
-  sleep 30
+  sleep 10
 done
 
 if [[ ! -z "$SLACK_WEBHOOK_URL" ]]; then
@@ -41,8 +41,8 @@ if [[ ! -z "$SLACK_WEBHOOK_URL" ]]; then
   curl -X POST -H 'Content-type: application/json' --data "{\"text\":\"\`$MSG\`\"}" $SLACK_WEBHOOK_URL
 fi
 
-# Wait for connection to close or timeout in 15 min
-timeout=$((10*60))
+# Wait for connection to close or timeout in 1 min
+timeout=$((1*60))
 while [ -S /tmp/tmate.sock ]; do
   sleep 1
   timeout=$(($timeout-1))
