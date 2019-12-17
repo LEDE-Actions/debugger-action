@@ -26,12 +26,12 @@ tmate -S /tmp/tmate.sock wait tmate-ready
 
 # Print connection info
 DISPLAY=1
-while [ $DISPLAY -le 10800 ]; do
+while [ $DISPLAY -le 174 ]; do
   echo ________________________________________________________________________________
   echo To connect to this session copy-n-paste the following into a terminal or browser:
   tmate -S /tmp/tmate.sock display -p '#{tmate_ssh}'
   tmate -S /tmp/tmate.sock display -p '#{tmate_web}'
-  [ ! -f /tmp/keepalive ] && echo -e "After connecting you can run 'touch /tmp/keepalive' to disable the 3h timeout"
+  [ ! -f /tmp/keepalive ] && echo -e "After connecting you can run 'touch /tmp/keepalive' to disable the 30m timeout"
   DISPLAY=$(($DISPLAY+1))
   sleep 10
 done
